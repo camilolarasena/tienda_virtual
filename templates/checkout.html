@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Pago de prueba | SportZone{% endblock %}
+{% block content %}
+<section class="page-header"><div class="container"><span class="eyebrow">FINALIZAR COMPRA</span><h1>Pago de prueba</h1><p>Esta pantalla simula una aprobación. No solicita ni procesa datos bancarios reales.</p></div></section>
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+      <div class="col-lg-7">
+        <div class="checkout-card">
+          <div class="demo-payment-banner"><i class="fa-solid fa-flask"></i><div><strong>Entorno demostrativo</strong><span>Al confirmar, se crea el pedido y se descuenta el stock mediante una transacción SQLite.</span></div></div>
+          <h2 class="mt-4">Productos</h2>
+          {% for item in items %}<div class="checkout-line"><span>{{ item.quantity }} × {{ item.product['name'] }}</span><strong>{{ format_cop(item.line_total) }}</strong></div>{% endfor %}
+          <div class="checkout-line text-muted"><span>Envío</span><strong>{% if shipping == 0 %}Gratis{% else %}{{ format_cop(shipping) }}{% endif %}</strong></div>
+          <div class="checkout-total"><span>Total</span><strong>{{ format_cop(total) }}</strong></div>
+          <form method="post" class="mt-4">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-success btn-lg w-100 fw-bold" type="submit"><i class="fa-solid fa-lock me-2"></i>Confirmar pago de prueba</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
